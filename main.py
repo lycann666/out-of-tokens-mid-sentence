@@ -14,6 +14,11 @@ def main():
     path = os.path.join(out_dir, "entry.txt")
     with open(path, "w", encoding="utf-8", newline="") as f:
         f.write(ENTRY)
+    # Verify the write: the gate requires UTF-8 text of 1-140 characters.
+    with open(path, encoding="utf-8", newline="") as f:
+        written = f.read()
+    if written != ENTRY or not 1 <= len(written) <= 140:
+        raise SystemExit("entry.txt verification failed")
 
 if __name__ == "__main__":
     main()
